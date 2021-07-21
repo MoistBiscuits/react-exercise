@@ -5,12 +5,14 @@
         {
           "command": "listExt",
           "parameters": [],
-          "description": "Lists all enabled and disabled Koala Extensions on your server"
+          "description": "Lists all enabled and disabled Koala Extensions on your server",
+          "example": "!listExt"
         },
         {
           "command": "enableExt",
           "parameters": ["koala_extension"],
-          "description": "Enable a Koala Extension on your server"
+          "description": "Enable a Koala Extension on your server",
+          "example": "Imagine an actual example is here"
         },
         {
           "command": "disableExt",

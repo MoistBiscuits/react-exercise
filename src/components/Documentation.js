@@ -5,6 +5,7 @@ import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 const Documentation = ({ docInput = require('./docs.json') }) => {
   const [expandedCogs, updateExpandedCogs] = useState(null);
+  const [expandedExamples, updateExpandedExamples] = useState(null);
 
   useEffect(() => {
     if (docInput && expandedCogs === null) {
@@ -17,7 +18,22 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
       });
       updateExpandedCogs(cogs);
     }
-  }, [docInput, expandedCogs]);
+
+    if (docInput && expandedExamples === null) {
+      var examples = {};
+      docInput.forEach((cog) => {
+        cog.commands.forEach((command) => {
+          console.log(command)
+          examples = {
+            ...examples,
+            [`${command.command.replace(/ /g, '_')}_example_expanded`]: true,
+          };
+        })
+      });
+
+      updateExpandedExamples(examples);
+    }
+  }, [docInput, expandedCogs, expandedExamples]);
 
   const getParameters = (command) => {
     var parameters = [];
@@ -31,12 +47,23 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
     var commands = [];
     cog.commands.forEach((command) => {
       const parameters = getParameters(command);
+      const id = `${command.command.replace(/ /g, '_')}_example_expanded`;
+
       commands.push(
         <li key={command.command + parameters}>
           <code data-testid="documentation-cog-command">
             {command.command} {parameters}
           </code>
           <div data-testid="documentation-cog-description">{command.description}</div>
+          <div key={id} data-testid="expandable-example">
+            <div data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
+              <FontAwesomeIcon className="documentation__caret" icon={expandedExamples[id] ? faCaretRight : faCaretDown} />
+              Open example
+            </div>
+            <ul className={expandedExamples[id] ? 'documentation__hidden' : ''} data-testid="example-commands">
+            {command.example}
+            </ul>
+          </div>
         </li>
       );
     });
@@ -47,6 +74,12 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
     const cogs = JSON.parse(JSON.stringify(expandedCogs));
     cogs[id] = !cogs[id];
     updateExpandedCogs(cogs);
+  };
+
+  const expandExample = (id) => {
+    const examples = JSON.parse(JSON.stringify(expandedExamples));
+    examples[id] = !examples[id];
+    updateExpandedExamples(examples);
   };
 
   const buildDocumentation = (documentationJson) => {
