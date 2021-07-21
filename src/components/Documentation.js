@@ -48,6 +48,11 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
     cog.commands.forEach((command) => {
       const parameters = getParameters(command);
       const id = `${command.command.replace(/ /g, '_')}_example_expanded`;
+      var hasExample = true;
+      console.log(command.example)
+      if (command.example === undefined) {
+        hasExample = false;
+      }
 
       commands.push(
         <li key={command.command + parameters}>
@@ -56,7 +61,7 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
           </code>
           <div data-testid="documentation-cog-description">{command.description}</div>
           <div key={id} data-testid="expandable-example">
-            <div data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
+            <div className={hasExample ? '' : 'documentation__hidden'}data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
               <FontAwesomeIcon className="documentation__caret" icon={expandedExamples[id] ? faCaretRight : faCaretDown} />
               Open example
             </div>
