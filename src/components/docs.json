@@ -6,7 +6,8 @@
           "command": "listExt",
           "parameters": [],
           "description": "Lists all enabled and disabled Koala Extensions on your server",
-          "example": "!listExt"
+          "example": "!listExt",
+          "output": "Extension1, Extension2, Extension3"
         },
         {
           "command": "enableExt",

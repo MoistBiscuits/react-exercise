@@ -49,9 +49,14 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
       const parameters = getParameters(command);
       const id = `${command.command.replace(/ /g, '_')}_example_expanded`;
       var hasExample = true;
+      var hasExampleOutput = true;
       console.log(command.example)
+
       if (command.example === undefined) {
         hasExample = false;
+      }
+      if (command.output === undefined) {
+        hasExampleOutput = false;
       }
 
       commands.push(
@@ -60,14 +65,24 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
             {command.command} {parameters}
           </code>
           <div data-testid="documentation-cog-description">{command.description}</div>
-          <div key={id} data-testid="expandable-example">
-            <div className={hasExample ? '' : 'documentation__hidden'}data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
+          <div key={id} className={hasExample ? '' : 'documentation__hidden'} data-testid="example__expandable">
+            <div className="documentation__expandable" data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
               <FontAwesomeIcon className="documentation__caret" icon={expandedExamples[id] ? faCaretRight : faCaretDown} />
               Open example
             </div>
-            <ul className={expandedExamples[id] ? 'documentation__hidden' : ''} data-testid="example-commands">
-            {command.example}
-            </ul>
+            <div className={expandedExamples[id] ? 'documentation__hidden' : 'command_example'}>
+              <pre>
+                <code className="command_example_code" data-testid="example-commands">
+                  {command.example}
+                </code>
+              </pre>
+              <pre>
+                <code className={hasExampleOutput ? 'command_example_output' : 'documentation__hidden'} data-testid="example-output">
+                  Output:<br/>
+                  {command.output}
+                </code>
+              </pre>
+            </div>
           </div>
         </li>
       );
