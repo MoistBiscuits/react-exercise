@@ -5,6 +5,7 @@
   --koala-text: white;
   --koala-pill: #1f2429;
   --koala-border: #677580;
+  --koala-green: #00a86f;
 }
 
 html {
@@ -29,11 +30,50 @@ pre code {
   display: inline-block;
 }
 
+li {
+  margin: 10px 0;
+}
+
 .content {
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.example {
+  color: var(--koala-text);
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 70vw;
+  margin-bottom: 2rem;
+
+  &__expandable {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    cursor: pointer;
+    color: var(--koala-green);
+  }
+
+  &__expandable &__divider {
+    height: 1px;
+    width: 100%;
+    align-self: center;
+    margin-left: 1rem;
+    background-color: var(--koala-text);
+    margin-top: 0.5rem;
+  }
+
+  &__expandable &__caret {
+    align-self: center;
+    margin-right: 1rem;
+  }
+
+  &__expandable &__cogname {
+    white-space: nowrap;
+  }
 }
 
 .documentation {

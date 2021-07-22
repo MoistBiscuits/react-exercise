@@ -18,7 +18,9 @@
         {
           "command": "disableExt",
           "parameters": ["koala_extension"],
-          "description": "Disable a Koala Extension on your server"
+          "description": "Disable a Koala Extension on your server",
+          "example": "k!disableExt Vote",
+          "usage": "Disables the Vote extension"
         },
         {
           "command": "welcomeUpdateMsg",

@@ -66,8 +66,8 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
           </code>
           <div data-testid="documentation-cog-description">{command.description}</div>
           <div key={id} className={hasExample ? '' : 'documentation__hidden'} data-testid="example__expandable">
-            <div className="documentation__expandable" data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
-              <FontAwesomeIcon className="documentation__caret" icon={expandedExamples[id] ? faCaretRight : faCaretDown} />
+            <div className="example__expandable" data-testid="documentation-cog-example" onClick={() => expandExample(id)}>
+              <FontAwesomeIcon className="example__caret" icon={expandedExamples[id] ? faCaretRight : faCaretDown} />
               Open example
             </div>
             <div className={expandedExamples[id] ? 'documentation__hidden' : 'command_example'}>
