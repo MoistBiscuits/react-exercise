@@ -49,14 +49,14 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
       const parameters = getParameters(command);
       const id = `${command.command.replace(/ /g, '_')}_example_expanded`;
       var hasExample = true;
-      var hasExampleOutput = true;
+      var hasExampleUsage = true;
       console.log(command.example)
 
       if (command.example === undefined) {
         hasExample = false;
       }
-      if (command.output === undefined) {
-        hasExampleOutput = false;
+      if (command.usage === undefined) {
+        hasExampleUsage = false;
       }
 
       commands.push(
@@ -72,14 +72,15 @@ const Documentation = ({ docInput = require('./docs.json') }) => {
             </div>
             <div className={expandedExamples[id] ? 'documentation__hidden' : 'command_example'}>
               <pre>
+              Command:<br/>
                 <code className="command_example_code" data-testid="example-commands">
                   {command.example}
                 </code>
               </pre>
-              <pre>
-                <code className={hasExampleOutput ? 'command_example_output' : 'documentation__hidden'} data-testid="example-output">
-                  Output:<br/>
-                  {command.output}
+              <pre className={hasExampleUsage ? 'command_example_usage' : 'documentation__hidden'}>
+              Usage:<br/>
+                <code className="command_example_usage" data-testid="example-usage">
+                  {command.usage}
                 </code>
               </pre>
             </div>
